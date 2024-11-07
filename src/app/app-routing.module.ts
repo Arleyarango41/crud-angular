@@ -16,6 +16,7 @@ import { GeotermicaComponent } from './components/geotermica/geotermica.componen
 
 //creamos la constante para las Rutas
 const routes: Routes = [
+  
   { path: '', redirectTo: '/create', pathMatch: 'full' },
   { path: 'solar', component: SolarComponent },
   { path: 'eolica', component: EolicaComponent },

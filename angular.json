@@ -106,7 +106,16 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            ],
+        "budgets": [
+  {
+    "type": "initial",
+    "maximumWarning": "1.5mb",
+    "maximumError": "1.8mb"
+  }
+]
+
+
 
           
           }
