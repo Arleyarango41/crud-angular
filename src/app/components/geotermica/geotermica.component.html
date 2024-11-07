@@ -1,0 +1,120 @@
+<div class="container">
+    <h2 class="my-4">Energía Geotermica</h2>
+
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="table table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>País</th>
+                    <th>Año</th>
+                    <th>cantidad_poblacion:</th>
+                    <th>Caudal</th>
+                    <th>Temperatura_Entrada</th>
+                    <th>Temperatura_Salida</th>
+                    <th>Capacidad_Calorífica</th>
+                    <th>Eficiencia</th>
+                    <th>Tiempo_operacion</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energia of energiaGeoList">
+                    <td>{{ energia.id_geo }}</td>
+                    <td>{{ energia.pais }}</td>
+                    <td>{{ energia.anio }}</td>
+                    <td>{{ energia.cantidad_poblacion }}</td>
+                    <td>{{ energia.Caudal_Flujo}}</td>
+                    <td>{{ energia.Temperatura_Entrada }}</td>
+                    <td>{{ energia.Temperatura_Salida }}</td>
+                    <td>{{ energia.Capacidad_Calorifica }}</td>
+                    <td>{{ energia.Tiempo_operacion }}</td>
+                    
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSelect(energia)" class="btn btn-info">Editar</button>
+                            <button (click)="onDelete(energia.id_geo)" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Formulario para crear o actualizar registros de Hidroelectricidad -->
+<div class="my-4">
+    <h2 class="text-center">Formulario de Energía Geotermica</h2>
+    <form >
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" [(ngModel)]="selectedEnergiaGeotermica.id_geo" name="id_geo" />
+
+        <div class="row">
+            <!-- Primera columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">País</label>
+                    <input type="text" [(ngModel)]="selectedEnergiaGeotermica.pais" name="pais" id="pais" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.anio" name="anio" id="anio" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_poblacion">cantidad_poblacion</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.cantidad_poblacion" name="cantidad_poblacion" id="cantidad_poblacion" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="Caudal_Flujo">Caudal_Flujo</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Caudal_Flujo" name="Caudal_Flujo" id="Caudal_Flujo" class="form-control" placeholder="Altura de caída en metros" required />
+                </div>
+                
+            </div>
+
+            <!-- Segunda columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Temperatura_Entrada">Temperatura_Entrada</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Temperatura_Entrada" name="Temperatura_Entrada" id="Temperatura_Entrada" class="form-control" placeholder="Cantidad de población" required />
+                </div>
+                <div class="form-group">
+                    <label for="Temperatura_Salida">Temperatura_Salida</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Temperatura_Salida" name="Temperatura_Salida" id="Temperatura_Salida" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="Capacidad_Calorifica">Capacidad_Calorifica</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Capacidad_Calorifica" name="Capacidad_Calorifica" id="Capacidad_Calorifica" class="form-control"  required />
+                </div>
+                <div class="form-group">
+                    <label for="Eficiencia">Eficiencia</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Eficiencia" name="Eficiencia" id="Eficiencia" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="Tiempo_operacion">eTiempo_operacion</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaGeotermica.Tiempo_operacion" name="Tiempo_operacion" id="Tiempo_operacion" class="form-control" required />
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <form (ngSubmit)="onCreateUpdate()">
+                <button type="submit" class="btn btn-success btn-lg mx-2">Guardar Cambios</button>
+              </form>
+            <button (click)="navegarAPrincipal()" class="btn btn-secondary btn-lg mx-2">Volver al inicio</button>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button (click)="calcularProduccion()" class="btn btn-danger flex-fill mx-1">Calcular Producción</button>
+            <button (click)="calcularConsumo()" class="btn btn-warning flex-fill mx-1">Calcular Consumo</button>
+            <button (click)="calcularPorcentajeRenovable()" class="btn btn-success flex-fill mx-1">Calcular Porcentaje Renovable</button>
+            <button (click)="generarInformeEolica()" class="btn btn-primary flex-fill mx-1">Generar Informe</button>
+        </div>
+        <br>
+        <br>
+        <h2 class="text-center">Demanda energetica</h2>
+        <app-grafico [demandaEnergeticaPorPais]="demandaEnergeticaPorPais"></app-grafico>
+    </form>
+</div>
+
+

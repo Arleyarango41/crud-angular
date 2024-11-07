@@ -1,0 +1,109 @@
+<div class="container">
+    <h2 class="my-4">Energía Biomasa</h2>
+
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="table table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>País</th>
+                    <th>Año</th>
+                    <th>cantidad poblacion:</th>
+                    <th>Materia prima</th>
+                    <th>poder calorifico</th>
+                    <th>tiempo Operacion</th>
+                    <th>eficiencia (h)</th>
+                                     
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energia of energiaBioList">
+                    <td>{{ energia.id_bio }}</td>
+                    <td>{{ energia.pais }}</td>
+                    <td>{{ energia.anio }}</td>
+                    <td>{{ energia.cantidad_poblacion }}</td>
+                    <td>{{ energia.cantidad_materia_prima}}</td>
+                    <td>{{ energia.poder_calorifico_kwh }}</td>
+                    <td>{{ energia.tiempoOperacion_horas }}</td>
+                    <td>{{ energia.eficiencia }}</td>
+                                       
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSelect(energia)" class="btn btn-info">Editar</button>
+                            <button (click)="onDelete(energia.id_bio)" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Formulario para crear o actualizar registros de Hidroelectricidad -->
+<div class="my-4">
+    <h2 class="text-center">Formulario de Energía Biomasa</h2>
+    <form >
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" [(ngModel)]="selectedEnergiaBiomasa.id_bio" name="id_bio" />
+
+        <div class="row">
+            <!-- Primera columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">País</label>
+                    <input type="text" [(ngModel)]="selectedEnergiaBiomasa.pais" name="pais" id="pais" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.anio" name="anio" id="anio" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_poblacion">cantidad_poblacion</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.cantidad_poblacion" name="cantidad_poblacion" id="cantidad_poblacion" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_materia_prima">cantidad_materia_prima</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.cantidad_materia_prima" name="cantidad_materia_prima" id="cantidad_materia_prima" class="form-control" placeholder="Altura de caída en metros" required />
+                </div>
+                
+            </div>
+
+            <!-- Segunda columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="apoder_calorifico_kwh">Apoder_calorifico_kwh</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.poder_calorifico_kwh" name="poder_calorifico_kwh" id="poder_calorifico_kwh" class="form-control" placeholder="Cantidad de población" required />
+                </div>
+                <div class="form-group">
+                    <label for="tiempoOperacion_horas">tiempoOperacion_horas</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.tiempoOperacion_horas" name="tiempoOperacion_horas" id="tiempoOperacion_horas" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="eficiencia">eficiencia</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaBiomasa.eficiencia" name="eficiencia" id="eficiencia" class="form-control"  required />
+                </div>
+              
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <form (ngSubmit)="onCreateUpdate()">
+                <button type="submit" class="btn btn-success btn-lg mx-2">Guardar Cambios</button>
+              </form>
+            <button (click)="navegarAPrincipal()" class="btn btn-secondary btn-lg mx-2">Volver al inicio</button>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button (click)="calcularProduccion()" class="btn btn-danger flex-fill mx-1">Calcular Producción</button>
+            <button (click)="calcularConsumo()" class="btn btn-warning flex-fill mx-1">Calcular Consumo</button>
+            <button (click)="calcularPorcentajeRenovable()" class="btn btn-success flex-fill mx-1">Calcular Porcentaje Renovable</button>
+            <button (click)="generarInformeBio()" class="btn btn-primary flex-fill mx-1">Generar Informe</button>
+        </div>
+        <br>
+        <br>
+        <h2 class="text-center">Demanda energetica</h2>
+        <app-grafico [demandaEnergeticaPorPais]="demandaEnergeticaPorPais"></app-grafico>
+    </form>
+</div>
+
+

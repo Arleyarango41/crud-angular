@@ -1,0 +1,24 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.background-image {
+    background-image: url('/assets/img/3.png'); /* Ruta a tu imagen en assets/img */
+    background-size: cover; /* Cubrir toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    height: 100vh; /* Altura completa de la ventana */
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+}
+
+.bg-blue {
+    background-color: rgba(0, 123, 255, 0.8); /* Color azul con opacidad */
+    color: white; /* Color de texto blanco */
+}
+
+h2 {
+    margin-bottom: 20px; /* Espacio inferior para el título */
+}

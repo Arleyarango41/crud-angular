@@ -1,0 +1,31 @@
+<div class="background-image">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate class="bg-blue p-4 rounded">
+              <h2 class="text-center text-black">Registro</h2>
+              <div class="mb-3">
+                  <label class="form-label text-black">Nombre</label>
+                  <input formControlName="Nombre" type="text" class="form-control" required>      
+              </div>
+              <div class="mb-3">
+                <label class="form-label text-black">Usuario</label>
+                <input formControlName="Usuario" type="text" class="form-control" required>  
+                <label class="form-label text-black">Almenos una mayuscula y dos numeros</label>    
+            </div>
+            <div class="mb-3">
+                  <label class="form-label text-black">Contraseña</label>
+                  <input formControlName="Contraseña" type="text" class="form-control" required>       
+              </div>
+              
+              <div class="text-center mt-4"> <!-- Contenedor para los botones -->
+                  <button [disabled]="!postForm.valid" type="submit" class="btn btn-success me-4">Guardar</button>
+                
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

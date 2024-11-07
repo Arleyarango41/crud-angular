@@ -1,0 +1,50 @@
+<div class="background-image">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="mb-3">
+          <h1 style="font-size: 3rem; color: white; text-align: center;">Bienvenido a Energías Renovables</h1>     
+            </div>
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate class="bg-blue p-4 rounded">
+              <h1 class="text-center text-black">Inicio de sesion</h1>
+
+              <div class="mb-3">
+                <label class="form-label text-black">Nombre</label>
+                <input formControlName="Nombre" type="text" class="form-control" required>      
+            </div>
+              <div class="mb-3">
+                  <label class="form-label text-black">Usuario</label>
+                  <input formControlName="Usuario" type="text" class="form-control" required>      
+              </div>
+             
+              <div class="mb-3">
+                  <label class="form-label text-black">Contraseña</label>
+                  <input formControlName="Contraseña" type="password" class="form-control" required>       
+              </div>
+              
+              <div class="text-center mt-4">
+                <!-- Botón para enviar el formulario -->
+                <button 
+                  [disabled]="!postForm.valid" 
+                  type="submit" 
+                  class="btn btn-success me-5"
+                  style="background-color: #28a745; border-color: #28a745;">
+                  Ingresar
+                </button>
+                
+                <!-- Botón para redirigir al módulo de registro -->
+                <button 
+                  type="button" 
+                  class="btn btn-info" 
+                  style="background-color: #17a2b8; border-color: #17a2b8;"
+                  (click)="redirigirModuloRegistro()">
+                  Registrarse
+                </button>
+              </div>
+              
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

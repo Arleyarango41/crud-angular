@@ -1,0 +1,36 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.background-image {
+  background-image: url('/assets/img/1.png'); /* Ruta a tu imagen en assets/img */
+  background-size: cover; /* Cubrir toda la pantalla */
+  background-position: center; /* Centra la imagen */
+  height: 100vh; /* Altura completa de la ventana */
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+.bg-blue {
+  background-color: rgba(0, 123, 255, 0.8); /* Color azul con opacidad */
+  color: white; /* Color de texto blanco */
+}
+
+h2 {
+  margin-bottom: 20px; /* Espacio inferior para el título */
+}
+.container {
+  text-align: center; /* Asegura que el texto dentro del contenedor esté centrado */
+}
+
+.btn {
+  width: 100%; /* Hace que los botones ocupen todo el ancho del contenedor */
+  font-size: 1.2rem; /* Aumenta el tamaño del texto en los botones */
+  padding: 15px; /* Aumenta el padding para hacer los botones más grandes */
+}
+.col-md-6 {
+margin-bottom: 20px;
+}

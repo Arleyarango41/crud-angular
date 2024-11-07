@@ -1,0 +1,20 @@
+.table {
+    width: 100%;
+    table-layout: auto; /* Ajusta el ancho de cada columna según el contenido */
+}
+
+.table thead th {
+    position: sticky; /* Mantiene el encabezado en la parte superior cuando hay scroll */
+    top: 0;
+    background-color: #f8f9fa; /* Color de fondo del encabezado */
+    z-index: 1;
+}
+h2 {
+    text-align: center;            /* Centra el texto horizontalmente */
+    background-color: #0cef0c;    /* Color de fondo amarillo claro */
+    font-family: 'Tahoma', sans-serif; /* Tipo de letra Tahoma */
+    font-size: 30px;              /* Tamaño de la letra 30px */
+    font-weight: bold;            /* Letra en negrita */
+    padding: 20px;                /* Espaciado interno para un mejor aspecto */
+    margin: 0;                    /* Elimina el margen por defecto */
+}

@@ -1,0 +1,125 @@
+<div class="container">
+    <h2 class="my-4">Energía Hidroeléctrica</h2>
+
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="table table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>País</th>
+                    <th>Año</th>
+                    <th>Caudal de Agua (m³)</th>
+                    <th>Altura de Caída (m)</th>
+                    <th>Aceleración por Gravedad (m/s²)</th>
+                    <th>Eficiencia del Sistema (%)</th>
+                    <th>Tiempo (h)</th>
+                    <th>Población</th>
+                    <th>Energía Generada (kWh)</th>
+                    <th>Demanda Energética (kWh)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energia of energiaHidroList">
+                    <td>{{ energia.id_hidroelectrica }}</td>
+                    <td>{{ energia.pais }}</td>
+                    <td>{{ energia.anio }}</td>
+                    <td>{{ energia.caudal_agua_m3 }}</td>
+                    <td>{{ energia.altura_caida_m }}</td>
+                    <td>{{ energia.aceleracion_por_gravedad }}</td>
+                    <td>{{ energia.eficienciaSistema }}</td>
+                    <td>{{ energia.tiempo_horas }}</td>
+                    <td>{{ energia.cantidad_poblacion }}</td>
+                    <td>{{ energia.energia_generada_kwh }}</td>
+                    <td>{{ energia.energia_requerida }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSelect(energia)" class="btn btn-info">Editar</button>
+                            <button (click)="onDelete(energia.id_hidroelectrica)" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Formulario para crear o actualizar registros de Hidroelectricidad -->
+<div class="my-4">
+    <h2 class="text-center">Formulario de Energía Hidroeléctrica</h2>
+    <form >
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" [(ngModel)]="selectedEnergiaHidro.id_hidroelectrica" name="id_hidroelectrica" />
+
+        <div class="row">
+            <!-- Primera columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">País</label>
+                    <input type="text" [(ngModel)]="selectedEnergiaHidro.pais" name="pais" id="pais" class="form-control" placeholder="Ingrese el país" required />
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.anio" name="anio" id="anio" class="form-control" placeholder="Ingrese el año" required />
+                </div>
+                <div class="form-group">
+                    <label for="caudalAgua">Caudal de Agua (m³)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.caudal_agua_m3" name="caudalAgua" id="caudalAgua" class="form-control" placeholder="Caudal en m³" required />
+                </div>
+                <div class="form-group">
+                    <label for="alturaCaida">Altura de Caída (m)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.altura_caida_m" name="alturaCaida" id="alturaCaida" class="form-control" placeholder="Altura de caída en metros" required />
+                </div>
+                <div class="form-group">
+                    <label for="poblacion">Población Beneficiada</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.cantidad_poblacion" name="poblacion" id="poblacion" class="form-control" placeholder="Cantidad de población" required />
+                </div>
+            </div>
+
+            <!-- Segunda columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="aceleracionGravedad">Aceleración por Gravedad (m/s²)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.aceleracion_por_gravedad" name="aceleracionGravedad" id="aceleracionGravedad" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="eficienciaSistema">Eficiencia del Sistema (%)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.eficienciaSistema" name="eficienciaSistema" id="eficienciaSistema" class="form-control"  required />
+                </div>
+                <div class="form-group">
+                    <label for="tiempoHoras">Tiempo de Operación (h)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.tiempo_horas" name="tiempoHoras" id="tiempoHoras" class="form-control" required />
+                </div>
+               
+                <div class="form-group">
+                    <label for="energiaGenerada">Energía Generada (kWh)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.energia_generada_kwh" name="energiaGenerada" id="energiaGenerada" class="form-control"  required />
+                </div>
+                <div class="form-group">
+                    <label for="energiaRequerida">Demanda Energética (kWh)</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaHidro.energia_requerida" name="energiaRequerida" id="energiaRequerida" class="form-control" placeholder="Demanda energética en kWh" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <form (ngSubmit)="onCreateUpdate()">
+                <button type="submit" class="btn btn-success btn-lg mx-2">Guardar Cambios</button>
+              </form>
+            <button (click)="navegarAPrincipal()" class="btn btn-secondary btn-lg mx-2">Volver al inicio</button>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button (click)="calcularProduccion()" class="btn btn-danger flex-fill mx-1">Calcular Producción</button>
+            <button (click)="calcularConsumo()" class="btn btn-warning flex-fill mx-1">Calcular Consumo</button>
+            <button (click)="calcularPorcentajeRenovable()" class="btn btn-success flex-fill mx-1">Calcular Porcentaje Renovable</button>
+            <button (click)="generarInformeHidro()" class="btn btn-primary flex-fill mx-1">Generar Informe</button>
+        </div>
+        <br>
+        <br>
+        <h2 class="text-center">Demanda energetica</h2>
+        <app-grafico [demandaEnergeticaPorPais]="demandaEnergeticaPorPais"></app-grafico> 
+    </form>
+</div>
+
+

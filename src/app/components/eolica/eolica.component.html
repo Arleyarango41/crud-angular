@@ -1,0 +1,119 @@
+<div class="container">
+    <h2 class="my-4">Energía Eolica</h2>
+
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="table table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>País</th>
+                    <th>Año</th>
+                    <th>cantidad_poblacion:</th>
+                    <th>densidad_1225</th>
+                    <th>areaBarrido</th>
+                    <th>velocidadViento</th>
+                    <th>Tiempo (h)</th>
+                    <th>Eficiencia</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energia of energiaEolicaList">
+                    <td>{{ energia.id_eolica }}</td>
+                    <td>{{ energia.pais }}</td>
+                    <td>{{ energia.anio }}</td>
+                    <td>{{ energia.cantidad_poblacion }}</td>
+                    <td>{{ energia.densidad_1225}}</td>
+                    <td>{{ energia.areaBarrido }}</td>
+                    <td>{{ energia.velocidadViento }}</td>
+                    <td>{{ energia.tiempoOperacion_horas }}</td>
+                    <td>{{ energia.eficienciaTurbina_035_045 }}</td>
+                    
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSelect(energia)" class="btn btn-info">Editar</button>
+                            <button (click)="onDelete(energia.id_eolica)" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Formulario para crear o actualizar registros de Hidroelectricidad -->
+<div class="my-4">
+    <h2 class="text-center">Formulario de Energía Eolica</h2>
+    <form>
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" [(ngModel)]="selectedEnergiaEolica.id_eolica" name="id_eolica" />
+
+        <div class="row">
+            <!-- Primera columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pais">País</label>
+                    <input type="text" [(ngModel)]="selectedEnergiaEolica.pais" name="pais" id="pais" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.anio" name="anio" id="anio" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="cantidad_poblacion">cantidad_poblacion</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.cantidad_poblacion" name="cantidad_poblacion" id="cantidad_poblacion" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="densidad_1225">densidad del aire, generalmente es 1225</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.densidad_1225" name="densidad_1225" id="densidad_1225" class="form-control" placeholder="Altura de caída en metros" required />
+                </div>
+                
+            </div>
+
+            <!-- Segunda columna del formulario -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="areaBarrido">Area de barrido por el rotor</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.areaBarrido" name="areaBarrido" id="areaBarrido" class="form-control" placeholder="Cantidad de población" required />
+                </div>
+                <div class="form-group">
+                    <label for="velocidadViento">Velocidad del Viento</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.velocidadViento" name="velocidadViento" id="velocidadViento" class="form-control" placeholder="" required />
+                </div>
+                <div class="form-group">
+                    <label for="tiempoOperacion_horas">tiempoOperacion_horas</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.tiempoOperacion_horas" name="tiempoOperacion_horas" id="tiempoOperacion_horas" class="form-control"  required />
+                </div>
+                <div class="form-group">
+                    <label for="eficienciaTurbina_035_045">eficienciaTurbina_035_045</label>
+                    <input type="number" [(ngModel)]="selectedEnergiaEolica.eficienciaTurbina_035_045" name="eficienciaTurbina_035_045" id="eficienciaTurbina_035_045" class="form-control" required />
+                </div>
+               
+                
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+           <!-- Cambiar el tipo de botón a "submit" para que dispare el evento ngSubmit -->
+           <form (ngSubmit)="onCreateUpdate($event)">
+            <button type="submit" class="btn btn-success btn-lg mx-2">Guardar Cambios</button>
+          </form>
+
+
+            <button (click)="navegarAPrincipal()" class="btn btn-secondary btn-lg mx-2">Volver al inicio</button>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button (click)="calcularProduccion()" class="btn btn-danger flex-fill mx-1">Calcular Producción</button>
+            <button (click)="calcularConsumo()" class="btn btn-warning flex-fill mx-1">Calcular Consumo</button>
+            <button (click)="calcularPorcentajeRenovable()" class="btn btn-success flex-fill mx-1">Calcular Porcentaje Renovable</button>
+            <button (click)="generarInformeEolica()" class="btn btn-primary flex-fill mx-1">Generar Informe</button>
+        </div>
+        <br>
+        <br>
+        <h2 class="text-center">Demanda energetica</h2>
+        <app-grafico [demandaEnergeticaPorPais]="demandaEnergeticaPorPais"></app-grafico>
+    </form>
+</div>
+
+

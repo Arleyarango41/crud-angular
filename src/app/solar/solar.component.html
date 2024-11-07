@@ -1,0 +1,116 @@
+<div class="container">
+    <h2 class="my-4">Energía Solar</h2>
+
+    <div style="max-height: 300px; overflow-y: auto;">
+        <table class="table table-bordered" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 60px;">ID</th>
+                    <th>País</th>
+                    <th>Año</th>
+                    <th>Población</th>
+                    <th>Potencia (kW)</th>
+                    <th>Eficiencia 15-20</th>
+                    <th>Horas de Sol (h)</th>
+                    <th>Demanda Energética (kW)</th>
+                    <th>Horas de Uso (h)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let energia of energiaSolarList">
+                    <td>{{ energia.id_solar }}</td>
+                    <td>{{ energia.pais }}</td>
+                    <td>{{ energia.anio }}</td>
+                    <td>{{ energia.cantidad_poblacion }}</td>
+                    <td>{{ energia.potencia_kW }}</td>
+                    <td>{{ energia.eficiencia_15_20 }}</td>
+                    <td>{{ energia.horas_sol_h }}</td>
+                    <td>{{ energia.demanda_energetica_kW }}</td>
+                    <td>{{ energia.horas_uso_h }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button (click)="onSelect(energia)" class="btn btn-info">Editar</button>
+                            <button (click)="onDelete(energia.id_solar)" class="btn btn-danger">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Formulario para crear o actualizar registros -->
+    <div class="my-4">
+        <h2 class="text-center">Formulario de Energía Solar</h2>
+        <form>
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" [(ngModel)]="selectedEnergiaSolar.id_solar" name="id_solar" />
+
+            <div class="row">
+                <!-- Primera columna del formulario -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pais">País</label>
+                        <input type="text" [(ngModel)]="selectedEnergiaSolar.pais" name="pais" id="pais" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="anio">Año</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.anio" name="anio" id="anio" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidadPoblacion">Población</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.cantidad_poblacion" name="cantidadPoblacion" id="cantidadPoblacion" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="potencia">Potencia (kW)</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.potencia_kW" name="potencia" id="potencia" class="form-control" placeholder="" required />
+                    </div>
+                </div>
+
+                <!-- Segunda columna del formulario -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="eficiencia">Eficiencia 15-20</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.eficiencia_15_20" name="eficiencia" id="eficiencia" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="horasSol">Horas de Sol (h)</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.horas_sol_h" name="horasSol" id="horasSol" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="demandaEnergetica">Demanda Energética (kW)</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.demanda_energetica_kW" name="demandaEnergetica" id="demandaEnergetica" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="horasUso">Horas de Uso (h)</label>
+                        <input type="number" [(ngModel)]="selectedEnergiaSolar.horas_uso_h" name="horasUso" id="horasUso" class="form-control" placeholder="" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="button" (click)="onCreateUpdate()" class="btn btn-success btn-lg mx-2">Guardar Cambios</button>
+                <button (click)="navegarAPrincipal()" class="btn btn-secondary btn-lg mx-2">Volver al inicio</button>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-4">
+                <button (click)="calcularProduccion(selectedEnergiaSolar.potencia_kW, selectedEnergiaSolar.horas_sol_h, selectedEnergiaSolar.eficiencia_15_20)" class="btn btn-danger flex-fill mx-1">
+                    Calcular Producción
+                </button>
+                <button (click)="calcularConsumo(selectedEnergiaSolar.potencia_kW, selectedEnergiaSolar.horas_uso_h, selectedEnergiaSolar.cantidad_poblacion)" class="btn btn-warning flex-fill mx-1">
+                    Calcular Consumo
+                </button>
+                <button (click)="calcularPorcentajeRenovable(selectedEnergiaSolar.potencia_kW, selectedEnergiaSolar.horas_sol_h, selectedEnergiaSolar.eficiencia_15_20, selectedEnergiaSolar.horas_uso_h, selectedEnergiaSolar.cantidad_poblacion)" class="btn btn-success flex-fill mx-1">
+                    Calcular Porcentaje Renovable
+                </button>
+                <button (click)="generarInforme(selectedEnergiaSolar.potencia_kW, selectedEnergiaSolar.horas_sol_h, selectedEnergiaSolar.eficiencia_15_20, selectedEnergiaSolar.horas_uso_h, selectedEnergiaSolar.cantidad_poblacion)" class="btn btn-primary flex-fill mx-1">
+                    Generar Informe
+                </button>
+            </div>
+            <br>
+            <br>
+            <h2 class="text-center">Demanda energética</h2>
+            <app-grafico [demandaEnergeticaPorPais]="demandaEnergeticaPorPais"></app-grafico> 
+        </form>
+    </div>
+</div>
